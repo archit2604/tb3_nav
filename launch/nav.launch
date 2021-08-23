@@ -1,0 +1,5 @@
+
+<launch>
+    <node pkg="tb3_nav" type="path_planner.py" name="path_planner" output="screen" launch-prefix="gnome-terminal --command" />
+    <node pkg="tb3_nav" type="controller.py" name="controller_" />
+</launch>
