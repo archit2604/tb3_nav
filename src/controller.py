@@ -39,10 +39,11 @@ def callback_odom(msg):
     global diff
     x = msg.pose.pose.position.x
     y = msg.pose.pose.position.y
-    if count == 0:
+    if count == 0 and (y_g != 0 or x_g!=0):
         theta_g = math.atan2(y_g - y, x_g - x)
+        print(theta_g)
         diff = theta_g - euler[2]
-        print(euler[2] * 180 / PI)
+        # print(euler[2] * 180 / PI)
         diff_sum += diff
         dedt = diff - diff_prev
         twist.angular.z = 3 * (diff) + 0.00044 * (diff_sum) + 30 * dedt
