@@ -34,7 +34,7 @@ Run the stack:
 ```bash
 cd ~/catkin_ws
 source devel/setup.bash
-roslaunch tb3_nav nav_fixed.launch
+roslaunch tb3_nav nav.launch
 ```
 Another terminal window opens up showing the status of the stack.It asks the user for the goal. It calculates the wheel velocities required to reach the goal and then guides the bot towards the goal.
 
