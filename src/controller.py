@@ -6,10 +6,6 @@ from geometry_msgs.msg import Twist
 import math
 from tf.transformations import euler_from_quaternion
 
-def callback(msg):
-    pass
-
-
 def callback_path(msg):
     global o
     global x_g
@@ -22,8 +18,6 @@ def callback_path(msg):
 
 
 def callback_odom(msg):
-    global count1
-    global count2
     global diff_sum
     global diff_prev
     global e
@@ -43,33 +37,26 @@ def callback_odom(msg):
     )
     x = msg.pose.pose.position.x
     y = msg.pose.pose.position.y
-    if True:
-        theta_g = math.atan2(y_g - y, x_g - x)
-        diff = theta_g - euler[2]
-        diff_sum += diff
-        dedt = diff - diff_prev
-        twist.angular.z = 3 * (diff) + 0.00044 * (diff_sum) + 30 * dedt
-        diff_prev = diff
-        if diff <= 0.0008 and diff >= -0.0008:
-            twist.angular.z = 0
-        pub.publish(twist)
-    if True:
-        e = math.sqrt(((x_g - x) * (x_g - x)) + ((y_g - y) * (y_g - y)))
-        e_sum += e
-        dedt = e - e_prev
-        twist.linear.x = (1.5 * (e) + 0.00044 * (e_sum) + 28 * dedt) / 30
-        if twist.linear.x > 0.22:
-            twist.linear.x = 0.22
-        e_prev = e
-        if e <= 0.05 and e >= -0.05:
-            twist.linear.x = 0
-        pub.publish(twist)
+    theta_g = math.atan2(y_g - y, x_g - x)
+    diff = theta_g - euler[2]
+    diff_sum += diff
+    dedt = diff - diff_prev
+    twist.angular.z = 3 * (diff) + 0.00044 * (diff_sum) + 30 * dedt
+    diff_prev = diff
+    if diff <= 0.0008 and diff >= -0.0008:
+        twist.angular.z = 0
+    pub.publish(twist)
+    e = math.sqrt(((x_g - x) * (x_g - x)) + ((y_g - y) * (y_g - y)))
+    e_sum += e
+    dedt = e - e_prev
+    twist.linear.x = (1.5 * (e) + 0.00044 * (e_sum) + 28 * dedt) / 30
+    if twist.linear.x > 0.22:
+        twist.linear.x = 0.22
+    e_prev = e
+    if e <= 0.05 and e >= -0.05:
+        twist.linear.x = 0
+    pub.publish(twist)
 
-
-global count1
-count1 = 0
-global count2
-count2 = 0
 global o
 o = 0
 global diff
