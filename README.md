@@ -39,3 +39,12 @@ roslaunch tb3_nav nav.launch
 Another terminal window opens up showing the status of the stack.It asks the user for the goal. It calculates the wheel velocities required to reach the goal and then guides the bot towards the goal.
 
 Use Ctrl+C to stop the node.
+
+## Updating the code
+```bash
+cd ~/catkin_ws/src/tb3_nav
+git pull
+cd ~/catkin_ws
+catkin build
+source devel/setup.bash
+```
